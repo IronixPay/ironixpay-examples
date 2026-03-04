@@ -26,7 +26,7 @@ TRON · BNB Chain · Polygon · Arbitrum · Base · Optimism · Ethereum
 ## Links
 
 - [Documentation](https://ironixpay.com/guide/quickstart)
-- [API Reference](https://ironixpay.com/guide/checkout)
+- [API Reference](https://api.ironixpay.com/docs)
 - [JavaScript SDK](https://www.npmjs.com/package/@ironix-pay/sdk)
 
 ## License
