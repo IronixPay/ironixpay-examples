@@ -7,6 +7,7 @@ Official integration examples for [IronixPay](https://ironixpay.com) — accept 
 | Example | Stack | Description |
 |:---|:---|:---|
 | [nextjs-starter](./nextjs-starter) | Next.js 15 + TypeScript | Full checkout flow with webhook verification |
+| [telegram-bot](./telegram-bot) | grammY + Express + TypeScript | Telegram bot with inline payments and webhook confirmation |
 
 ## Quick Start
 
