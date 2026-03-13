@@ -5,14 +5,15 @@ import type { Network } from "@/lib/ironixpay";
 export async function POST(request: Request) {
     try {
         const body = await request.json();
-        const { amount, network = "TRON" } = body as {
-            amount: number;
+        const { pricing_amount, pricing_currency = "USDT", network = "TRON" } = body as {
+            pricing_amount: string;
+            pricing_currency?: string;
             network?: Network;
         };
 
-        if (!amount || amount < 1_000_000) {
+        if (!pricing_amount || parseFloat(pricing_amount) < 1) {
             return NextResponse.json(
-                { error: "Amount must be at least 1,000,000 (1 USDT)" },
+                { error: "pricing_amount must be at least 1 (1 USDT)" },
                 { status: 400 }
             );
         }
@@ -21,7 +22,8 @@ export async function POST(request: Request) {
         const orderId = `order_${Date.now()}`;
 
         const session = await createCheckoutSession({
-            amount,
+            pricing_amount,
+            pricing_currency,
             currency: "USDT",
             network,
             success_url: `${appUrl}/success`,

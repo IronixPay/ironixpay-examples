@@ -36,9 +36,9 @@ const AVAILABLE_NETWORKS = IS_PRODUCTION
 // ─── Products ────────────────────────────────────────────────
 
 const PRODUCTS = [
-    { id: "starter", name: "⚡ Starter Plan", price: 9_990_000, description: "Basic features for individuals" },
-    { id: "pro", name: "🚀 Pro Plan", price: 29_990_000, description: "Advanced features for teams" },
-    { id: "enterprise", name: "🏢 Enterprise", price: 99_990_000, description: "Full access for organizations" },
+    { id: "starter", name: "⚡ Starter Plan", price: "9.99", description: "Basic features for individuals" },
+    { id: "pro", name: "🚀 Pro Plan", price: "29.99", description: "Advanced features for teams" },
+    { id: "enterprise", name: "🏢 Enterprise", price: "99.99", description: "Full access for organizations" },
 ] as const;
 
 // In-memory order store (use a real database in production!)
@@ -76,7 +76,7 @@ bot.command("buy", async (ctx) => {
     const keyboard = new InlineKeyboard();
 
     for (const product of PRODUCTS) {
-        const priceStr = (product.price / 1_000_000).toFixed(2);
+        const priceStr = product.price;
         keyboard.text(
             `${product.name} — $${priceStr}`,
             `buy:${product.id}`
@@ -98,7 +98,7 @@ bot.callbackQuery(/^buy:(.+)$/, async (ctx) => {
 
     await ctx.answerCallbackQuery();
 
-    const priceStr = (product.price / 1_000_000).toFixed(2);
+    const priceStr = product.price;
 
     if (IS_PRODUCTION && AVAILABLE_NETWORKS.length > 1) {
         // Production: let user pick a network first
@@ -145,7 +145,7 @@ bot.callbackQuery(/^net:(.+):(.+)$/, async (ctx) => {
 
     await ctx.answerCallbackQuery();
 
-    const priceStr = (product.price / 1_000_000).toFixed(2);
+    const priceStr = product.price;
 
     const keyboard = new InlineKeyboard()
         .text(`💳 Pay $${priceStr} USDT`, `pay:${product.id}:${network}`)
@@ -180,7 +180,8 @@ bot.callbackQuery(/^pay:(.+):(.+)$/, async (ctx) => {
         const orderId = `tg_${ctx.from.id}_${Date.now()}`;
 
         const session = await createCheckoutSession({
-            amount: product.price,
+            pricing_amount: product.price,
+            pricing_currency: "USDT",
             currency: "USDT",
             network,
             success_url: `${PUBLIC_URL}/success`,
@@ -194,7 +195,7 @@ bot.callbackQuery(/^pay:(.+):(.+)$/, async (ctx) => {
             productId: product.id,
         });
 
-        const priceStr = (product.price / 1_000_000).toFixed(2);
+        const priceStr = product.price;
 
         const keyboard = new InlineKeyboard()
             .url("💳 Pay Now", session.url)

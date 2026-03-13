@@ -9,8 +9,8 @@ import { verifyWebhookSignature } from "@/lib/ironixpay";
  *   https://yourdomain.com/api/webhooks/ironixpay
  *
  * Events:
- *   - checkout.session.completed — Payment confirmed on-chain
- *   - checkout.session.expired   — Session timed out
+ *   - session.completed — Payment confirmed on-chain
+ *   - session.expired   — Session timed out
  */
 export async function POST(request: Request) {
     try {

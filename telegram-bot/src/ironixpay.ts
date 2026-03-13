@@ -15,10 +15,12 @@ export type Network =
     | "BASE";
 
 export interface CreateSessionParams {
-    /** Amount in USDT micro-units (1 USDT = 1,000,000). Min: 1,000,000 */
-    amount: number;
-    /** Currency code. Currently only "USDT" */
-    currency: "USDT";
+    /** Amount in human-readable format, e.g. "10.50" for 10.50 USDT */
+    pricing_amount: string;
+    /** Pricing currency. Crypto ("USDT", "USDC") or fiat ("USD", "CNY", "EUR", etc.) */
+    pricing_currency: string;
+    /** On-chain settlement token: "USDT" or "USDC" */
+    currency: "USDT" | "USDC";
     /** Blockchain network */
     network: Network;
     /** Redirect URL after successful payment (for web) */
@@ -40,6 +42,11 @@ export interface CheckoutSession {
     network: string;
     pay_address: string;
     client_reference_id: string | null;
+    pricing: {
+        currency: string;
+        amount: string;
+        exchange_rate: string;
+    };
     success_url: string;
     cancel_url: string;
     expires_at: string;

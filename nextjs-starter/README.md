@@ -8,8 +8,8 @@ Accept USDT payments on 7 blockchains with [IronixPay](https://ironixpay.com) â€
 
 ```bash
 # 1. Clone
-git clone https://github.com/IronixPay/ironixpay-examples.git
-cd ironixpay-examples/nextjs-starter
+git clone https://github.com/Vincentkovsky/ironixpay-nextjs-starter.git
+cd ironixpay-nextjs-starter
 
 # 2. Configure
 cp .env.example .env.local
