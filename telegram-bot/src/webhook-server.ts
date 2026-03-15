@@ -60,9 +60,7 @@ export function startWebhookServer(
                     const order = pendingOrders.get(client_reference_id);
 
                     if (order) {
-                        const amount = (
-                            parseInt(amount_received, 10) / 1_000_000
-                        ).toFixed(2);
+                        const amount = amount_received;
 
                         await bot.api.sendMessage(
                             order.chatId,
